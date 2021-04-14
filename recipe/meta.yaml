@@ -24,9 +24,15 @@ requirements:
     - scikit-learn >=0.21
 
 test:
+  requires:
+    - pandas
+    - pytest
+  source_files:
+    - sklearnex/tests
   commands:
     - python -c "import sklearnex"
     - python -c "from sklearnex import patch_sklearn; patch_sklearn()"
+    - python -m pytest sklearnex/tests
 
 about:
   home: https://intel.github.io/scikit-learn-intelex

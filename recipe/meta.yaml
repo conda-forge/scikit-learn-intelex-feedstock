@@ -20,7 +20,7 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2020.3.1
+    - daal4py ==2021.2.2
     - scikit-learn >=0.21
 
 test:

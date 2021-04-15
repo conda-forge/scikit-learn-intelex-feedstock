@@ -1,5 +1,6 @@
 {% set name = "scikit-learn-intelex" %}
 {% set version = "2021.2.2" %}
+{% set buildnumber = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -10,8 +11,7 @@ source:
   sha256: b463068f493305891f83056f8e46a3b38e8596a3c9251a3e2ff428720b852f63
 
 build:
-  skip: true  # [osx]
-  number: 0
+  number: {{ buildnumber }}
   script: {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record.txt
 
 requirements:

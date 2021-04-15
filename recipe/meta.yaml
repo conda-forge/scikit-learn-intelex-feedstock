@@ -10,7 +10,7 @@ source:
   sha256: b463068f493305891f83056f8e46a3b38e8596a3c9251a3e2ff428720b852f63
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record.txt
 
 requirements:

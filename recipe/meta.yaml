@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2021.2.3" %}
+{% set version = "2021.3.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 02545f208535ca8791a1e1ab1215042dc4cf64444733b70040eb1b9eee0d03fd
+  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
 
 build:
   number: 1
@@ -19,7 +19,7 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2021.2.3
+    - daal4py ==2021.3.0
     - scikit-learn >=0.22
 
 test:
@@ -31,7 +31,7 @@ test:
   commands:
     - python -c "import sklearnex"
     - python -c "from sklearnex import patch_sklearn; patch_sklearn()"
-    - python -m pytest sklearnex/tests
+    - python -m pytest sklearnex/
 
 about:
   home: https://intel.github.io/scikit-learn-intelex

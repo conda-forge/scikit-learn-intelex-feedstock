@@ -29,9 +29,10 @@ test:
   source_files:
     - sklearnex/tests
   commands:
+    - cd sklearnex
     - python -c "import sklearnex"
     - python -c "from sklearnex import patch_sklearn; patch_sklearn()"
-    - python -m pytest sklearnex/
+    - python -m pytest .
 
 about:
   home: https://intel.github.io/scikit-learn-intelex

@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2021.3.0" %}
+{% set version = "2021.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
+  sha256: 312fe4db3c03e8c17cd159d18afbdce8abf71c51247fc1cef756ac994b8b24e7
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -19,7 +19,7 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2021.3.0
+    - daal4py ==2021.4.0
     - scikit-learn >=0.22
 
 test:

@@ -206,6 +206,7 @@ Feedstock Maintainers
 =====================
 
 * [@Pahandrovich](https://github.com/Pahandrovich/)
+* [@itearsl](https://github.com/itearsl/)
 * [@napetrov](https://github.com/napetrov/)
 * [@vmeshche](https://github.com/vmeshche/)
 

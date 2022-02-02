@@ -9,7 +9,7 @@ source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
   patches:
-    - patches/001-replace-test-memory-leaks-in-tests.patch
+    - patch/001-replace-test-memory-leaks-in-tests.patch
 
 build:
   number: 0

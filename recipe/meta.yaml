@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2021.4.0" %}
+{% set version = "2021.5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 312fe4db3c03e8c17cd159d18afbdce8abf71c51247fc1cef756ac994b8b24e7
+  sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
 
 build:
   number: 0
@@ -19,7 +19,7 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2021.4.0
+    - daal4py ==2021.5.0
     - scikit-learn >=0.22
 
 test:
@@ -58,3 +58,4 @@ extra:
     - napetrov
     - vmeshche
     - Pahandrovich
+    - itearsl

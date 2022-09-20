@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2021.5.0" %}
+{% set version = "2021.6.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,10 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
-  patches:
-    - patches/0001-replace-test-memory-leaks-in-tests.patch
+  sha256: a75acdc518f0af262a86952ee1040d5c8b9a9dbd4bf798fd974a917ee5b47e68
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -21,8 +19,8 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2021.5.0
-    - scikit-learn >=0.22
+    - daal4py ==2021.6.0
+    - scikit-learn <1.1
 
 test:
   requires:
@@ -58,6 +56,4 @@ about:
 extra:
   recipe-maintainers:
     - napetrov
-    - vmeshche
-    - Pahandrovich
-    - itearsl
+    - Alexsandruss

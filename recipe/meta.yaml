@@ -12,7 +12,7 @@ source:
     - patches/0001-sklearn1_1-wrappers-update.patch
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record.txt
 
 requirements:

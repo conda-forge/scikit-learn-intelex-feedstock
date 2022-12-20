@@ -8,8 +8,6 @@ package:
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 3d226a7897b33951928b59fc81499163eb02f0eec661eb27974f6fd737ec6051
-  patches:
-    - patches/0001-sklearn1_1-wrappers-update.patch
 
 build:
   number: 0
@@ -21,7 +19,7 @@ requirements:
     - setuptools
   run:
     - python
-    - daal4py ==2021.7.1
+    - daal4py ==2023.0.1
     - scikit-learn
 
 test:

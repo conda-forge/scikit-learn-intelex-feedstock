@@ -1,11 +1,11 @@
-About scikit-learn-intelex
-==========================
+About scikit-learn-intelex-feedstock
+====================================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scikit-learn-intelex-feedstock/blob/main/LICENSE.txt)
 
 Home: https://intel.github.io/scikit-learn-intelex
 
 Package license: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scikit-learn-intelex-feedstock/blob/main/LICENSE.txt)
 
 Summary: Intel(R) Extension for Scikit-learn is a seamless way to speed up your Scikit-learn application.
 

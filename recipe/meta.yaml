@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2023.1.1" %}
+{% set version = "2023.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 451b8c5e6d3a0f4b147a68ffe37bbddf7fc2e706083ec3e57479ec4421a7d963
+  sha256: 564793676a79aa20c7c5469a7aa30d1d98f4b901ebd40e4ae93fb0261290e6e2
 
 build:
   number: 0
@@ -20,11 +20,10 @@ requirements:
   host:
     - python
     - setuptools
-    - dal-include ==2023.1.1  # [not osx]
-    - dal-include ==2023.0.1  # [osx]
+    - dal-include ==2023.2.1
   run:
     - python
-    - daal4py ==2023.1.1
+    - daal4py ==2023.2.1
     - scikit-learn
 
 test:

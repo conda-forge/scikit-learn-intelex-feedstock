@@ -20,11 +20,10 @@ requirements:
   host:
     - python
     - setuptools
-    - dal-include ==2023.1.1  # [not osx]
-    - dal-include ==2023.0.1  # [osx]
+    - dal-include ==2023.2.1
   run:
     - python
-    - daal4py ==2023.1.1
+    - daal4py ==2023.2.1
     - scikit-learn
 
 test:

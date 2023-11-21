@@ -1,5 +1,5 @@
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2023.2.1" %}
+{% set version = "2024.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 564793676a79aa20c7c5469a7aa30d1d98f4b901ebd40e4ae93fb0261290e6e2
+  sha256: 31ca1402d52f59403d34e890fc7c6038efda6a465dcfaa4ed35691d2ffe6c4ea
 
 build:
   number: 0

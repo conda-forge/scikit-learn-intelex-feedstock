@@ -11,7 +11,7 @@ source:
   sha256: 43aae65fd50aef15d7990f981e91d3b39b4d3e50211b86a3fc9898a33fc0c29d
 
 build:
-  skip: true # [not (linux64 or win)]
+  skip: true  # [not (linux64 or win)]
   number: {{ buildnumber }}
   script:
     - export DALROOT="${PREFIX}"  # [not win]

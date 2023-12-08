@@ -1,5 +1,6 @@
 {% set name = "scikit-learn-intelex" %}
 {% set version = "2024.0.1" %}
+{% set buildnumber = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +8,11 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 43e1c6da931bacd6e2ff94e8ff281dca13f55bd819c32cb23a0c3c01273650fc
+  sha256: 43aae65fd50aef15d7990f981e91d3b39b4d3e50211b86a3fc9898a33fc0c29d
 
 build:
-  number: 0
+  skip: true # [not (linux64 or win)]
+  number: {{ buildnumber }}
   script:
     - export DALROOT="${PREFIX}"  # [not win]
     - set DALROOT=%PREFIX%        # [win]
@@ -20,10 +22,10 @@ requirements:
   host:
     - python
     - setuptools
-    - dal-include ==2023.2.1
+    - dal-include ==2024.0.1
   run:
     - python
-    - daal4py ==2023.2.1
+    - daal4py ==2024.0.1
     - scikit-learn
 
 test:
@@ -61,3 +63,4 @@ extra:
   recipe-maintainers:
     - napetrov
     - Alexsandruss
+    - maria-Petrova

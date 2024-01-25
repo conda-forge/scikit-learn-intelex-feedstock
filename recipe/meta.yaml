@@ -22,10 +22,10 @@ requirements:
   host:
     - python
     - setuptools
-    - dal-include ==2024.0.1
+    - dal-include ==2024.1.0
   run:
     - python
-    - daal4py ==2024.0.1
+    - daal4py ==2024.1.0
     - scikit-learn
 
 test:

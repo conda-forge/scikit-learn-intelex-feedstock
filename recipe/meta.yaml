@@ -1,6 +1,6 @@
 {% set name = "scikit-learn-intelex" %}
 {% set version = "2024.3.0" %}
-{% set buildnumber = 0 %}
+{% set buildnumber = 1 %}
 
 package:
   name: {{ name|lower }}
@@ -22,10 +22,10 @@ requirements:
   host:
     - python
     - setuptools
-    - dal-include ==2024.3.0
+    - dal-include =={{ version }}
   run:
     - python
-    - daal4py ==2024.3.0
+    - daal4py =={{ version }}
     - scikit-learn
 
 test:

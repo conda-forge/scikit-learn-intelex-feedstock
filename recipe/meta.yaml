@@ -1,6 +1,6 @@
 {% set name = "scikit-learn-intelex" %}
 {% set version = "2024.4.0" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -64,3 +64,4 @@ extra:
     - napetrov
     - Alexsandruss
     - maria-Petrova
+    - ethanglaser

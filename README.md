@@ -240,6 +240,7 @@ Feedstock Maintainers
 =====================
 
 * [@Alexsandruss](https://github.com/Alexsandruss/)
+* [@ethanglaser](https://github.com/ethanglaser/)
 * [@maria-Petrova](https://github.com/maria-Petrova/)
 * [@napetrov](https://github.com/napetrov/)
 

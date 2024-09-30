@@ -1,8 +1,8 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2024.6.0" %}
-{% set buildnumber = 2 %}
+{% set version = "2024.7.0" %}
+{% set buildnumber = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 7ae556ca5923d3fb7a88f6534f4c48984bc8616b3a3827d7d44b655c6b92624b
+  sha256: 76371955787a30fd7ef8563a8083555cdc74841711a393b0a9194fb326c28acd
 
 build:
   skip: true  # [not (linux64 or win)]

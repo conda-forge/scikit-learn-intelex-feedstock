@@ -11,7 +11,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/Alexsandruss/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 94b0909f24cf5102320e5f9ccb3762ff3cb143262d994a83fb09c20643973d78
+  sha256: 4edc4035340226e0aad79ade28959d6cf234d96922ce3c803208cd03500d4b0a
 # source:
 #   path: ..
 
@@ -55,14 +55,18 @@ requirements:
 
 test:
   requires:
-    - pandas
+    - pyyaml
+    - impi_rt  # [not win]
+    # next deps are synced with requirements-test.txt
+    - pytest
     - scikit-learn
+    - pandas
     - xgboost
     - lightgbm
     - catboost
-    - pytest
-    - pyyaml
-    - impi_rt  # [not win]
+    - shap
+    - array-api-compat
+    - array-api-strict
   source_files:
     - .ci
     - examples

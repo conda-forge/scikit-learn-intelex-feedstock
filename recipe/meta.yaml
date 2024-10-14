@@ -11,7 +11,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/Alexsandruss/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 87a2f5f4f002dcba48d713f2fe8612a7d873969eb8aefde8eab55d3944f5ecda
+  sha256: 94b0909f24cf5102320e5f9ccb3762ff3cb143262d994a83fb09c20643973d78
 # source:
 #   path: ..
 

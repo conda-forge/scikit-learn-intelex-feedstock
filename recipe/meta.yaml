@@ -12,7 +12,7 @@ package:
 
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
-  url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
+  url: https://github.com/Alexsandruss/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 57c15e1a6124811df6c077442d673d0084fb42c09b70398dc2a7f0526744989f
 # source:
 #   path: ..

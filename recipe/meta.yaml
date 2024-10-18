@@ -3,7 +3,7 @@
 {% set name = "scikit-learn-intelex" %}
 {% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = 2025.0.1 %}
+{% set version = "2025.0.1" %}
 
 package:
   name: {{ name|lower }}

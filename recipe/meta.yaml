@@ -1,16 +1,21 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2024.7.0" %}
 {% set buildnumber = 0 %}
+# version is set manually in feedstocks and through git tag in repo
+{% set version = "2025.0.0" %}
 
 package:
   name: {{ name|lower }}
+  # version: {{ environ.get('GIT_DESCRIBE_TAG') }}
   version: {{ version }}
 
+# Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 76371955787a30fd7ef8563a8083555cdc74841711a393b0a9194fb326c28acd
+  sha256: a119bd7c122d7039d7046feb1d22767f81a3d0446db0b3d194cad4f83bf5520f
+# source:
+#   path: ..
 
 build:
   skip: true  # [not (linux64 or win)]
@@ -38,8 +43,7 @@ requirements:
     - jinja2
     - pybind11
     - numpy {{ numpy }}
-    - mpich  # [not win]
-    # - impi-devel  # [win]
+    - impi-devel  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
     - dal-devel =={{ version }}
@@ -53,22 +57,26 @@ requirements:
 
 test:
   requires:
-    - pandas
+    - pyyaml
+    - impi_rt  # [not win]
+    # TODO: enable data parallel frameworks when they are available on conda-forge
+    # - dpctl
+    # - dpnp
+    # next deps are synced with requirements-test.txt
+    - pytest
     - scikit-learn
+    - pandas
     - xgboost
     - lightgbm
-    - catboost
-    - pytest
-    - pyyaml
-    - mpich  # [not win]
-    # - impi_rt  # [win]
+    # TODO: re-enable shap and catboost when conda-forge packages has a numpy 2.* compatibility
+    # - shap
+    # - catboost
+    - array-api-compat
+    - array-api-strict
   source_files:
     - .ci
     - examples
     - tests
-    - daal4py/sklearn
-  commands:
-    - python -c "import sklearnex; sklearnex.patch_sklearn()"
 
 about:
   home: https://intel.github.io/scikit-learn-intelex

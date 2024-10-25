@@ -64,7 +64,9 @@ return_code=$(($return_code + $?))
 echo "NO_DIST=$NO_DIST"
 if [[ ! $NO_DIST ]]; then
     mpirun --version
-    mpirun -n 4 pytest --verbose -s ${sklex_root}/tests/test*spmd*.py $@ $(json_report_name mpi_legacy)
+    # TODO: replace command below after 2025.1 release
+    # mpirun -n 4 pytest --verbose -s ${sklex_root}/tests/test*spmd*.py $@ $(json_report_name mpi_legacy)
+    mpirun -n 4 python -m unittest discover -v -s ${sklex_root}/tests -p test*spmd*.py
     return_code=$(($return_code + $?))
 fi
 

@@ -42,7 +42,9 @@ function json_report_name {
 ${PYTHON} -c "from sklearnex import patch_sklearn; patch_sklearn()"
 return_code=$(($return_code + $?))
 
-pytest --verbose -s ${sklex_root}/tests $@ $(json_report_name legacy)
+# TODO: replace command below after 2025.1 release
+# pytest --verbose -s ${sklex_root}/tests $@ $(json_report_name legacy)
+python -m unittest discover -v -s ${sklex_root}/tests -p test*.py
 return_code=$(($return_code + $?))
 
 pytest --verbose --pyargs daal4py $@ $(json_report_name daal4py)

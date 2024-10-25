@@ -28,7 +28,8 @@ if "%with_json_report%"=="1" (
         set exitcode=1
     )
 ) else (
-    %PYTHON% -m pytest --verbose -s %1tests || set exitcode=1
+    rem TODO: replace command below after 2025.1 release
+    %PYTHON% -m unittest discover -v -s %1tests -p test*.py || set exitcode=1
     pytest --verbose --pyargs daal4py || set exitcode=1
     pytest --verbose --pyargs sklearnex || set exitcode=1
     pytest --verbose --pyargs onedal || set exitcode=1

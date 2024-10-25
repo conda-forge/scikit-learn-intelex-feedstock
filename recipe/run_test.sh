@@ -44,7 +44,7 @@ return_code=$(($return_code + $?))
 
 # TODO: replace command below after 2025.1 release
 # pytest --verbose -s ${sklex_root}/tests $@ $(json_report_name legacy)
-python -m unittest discover -v -s ${sklex_root}/tests -p test*.py
+${PYTHON} -m unittest discover -v -s ${sklex_root}/tests -p test*.py
 return_code=$(($return_code + $?))
 
 pytest --verbose --pyargs daal4py $@ $(json_report_name daal4py)
@@ -56,7 +56,9 @@ return_code=$(($return_code + $?))
 pytest --verbose --pyargs onedal $@ $(json_report_name onedal)
 return_code=$(($return_code + $?))
 
-pytest --verbose -s ${sklex_root}/.ci/scripts/test_global_patch.py $@ $(json_report_name global_patching)
+# TODO: replace command below after 2025.1 release
+# pytest --verbose -s ${sklex_root}/.ci/scripts/test_global_patch.py $@ $(json_report_name global_patching)
+${PYTHON} ${sklex_root}/.ci/scripts/test_global_patch.py
 return_code=$(($return_code + $?))
 
 echo "NO_DIST=$NO_DIST"

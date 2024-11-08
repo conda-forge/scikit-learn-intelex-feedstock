@@ -29,7 +29,7 @@ build:
 requirements:
   build:
     - make  # [linux]
-    - dpcpp_linux-64  # [linux64]
+    - dpcpp_linux-64 ==2025  # [linux64]
     # - dpcpp_win-64  # [win]
     - {{ compiler('cxx') }}  # [linux64 or win]
     # conda-forge feedstock specific

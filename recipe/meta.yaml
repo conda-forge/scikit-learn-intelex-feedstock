@@ -46,14 +46,14 @@ requirements:
     - impi-devel  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
-    - dal-devel ==2024.7.0
+    - dal-devel =={{ version }}
   run:
     - python
     - {{ pin_compatible('numpy') }}
     - dpcpp-cpp-rt  # [linux64]
     # dal pinning depends on the recipe location (repo or feedstock)
     # - dal
-    - dal ==2024.7.0
+    - dal =={{ version }}
 
 test:
   requires:

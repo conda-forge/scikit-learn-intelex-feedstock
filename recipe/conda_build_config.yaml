@@ -1,3 +1,0 @@
-# Use image with support of glibc 2.28
-docker_image:
-- quay.io/condaforge/linux-anvil-alma-x86_64:8  # [linux and x86_64]

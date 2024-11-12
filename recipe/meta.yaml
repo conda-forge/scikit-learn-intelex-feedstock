@@ -1,52 +1,91 @@
+# NB: this recipe should be synced between sklearnex repo and feedstocks
+
 {% set name = "scikit-learn-intelex" %}
-{% set version = "2024.6.0" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
+# version is set manually in feedstocks and through git tag in repo
+{% set version = "2025.0.0" %}
 
 package:
   name: {{ name|lower }}
+  # version: {{ environ.get('GIT_DESCRIBE_TAG') }}
   version: {{ version }}
 
+# Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 7ae556ca5923d3fb7a88f6534f4c48984bc8616b3a3827d7d44b655c6b92624b
+  sha256: a119bd7c122d7039d7046feb1d22767f81a3d0446db0b3d194cad4f83bf5520f
+# source:
+#   path: ..
 
 build:
   skip: true  # [not (linux64 or win)]
   number: {{ buildnumber }}
-  script:
-    - export DALROOT="${PREFIX}"  # [not win]
-    - set DALROOT=%PREFIX%        # [win]
-    - {{ PYTHON }} setup_sklearnex.py install --single-version-externally-managed --record=record_sklearnex.txt
+  include_recipe: False
+  script_env:
+  - DPCPPROOT
+  - DALROOT
+  - NO_DIST=1  # [win]
 
 requirements:
+  build:
+    - make  # [linux]
+    - dpcpp_linux-64  # [linux64]
+    # - dpcpp_win-64  # [win]
+    - {{ compiler('cxx') }}  # [linux64 or win]
+    # conda-forge feedstock specific
+    - {{ stdlib("c") }}  # [linux64 or win]
   host:
     - python
     - setuptools
-    - dal-include =={{ version }}
+    - cmake
+    - clang-format
+    - cython
+    - jinja2
+    - pybind11
+    - numpy {{ numpy }}
+    - impi-devel  # [not win]
+    # dal-devel pinning depends on the recipe location (repo or feedstock)
+    # - dal-devel
+    - dal-devel =={{ version }}
   run:
     - python
-    - daal4py =={{ version }}
-    - scikit-learn
+    - {{ pin_compatible('numpy') }}
+    # dal pinning depends on the recipe location (repo or feedstock)
+    # - dal
+    - dal =={{ version }}
 
 test:
   requires:
-    - pandas
+    - pyyaml
+    - impi_rt  # [not win]
+    # DPC part of sklearnex is optional
+    - dpcpp-cpp-rt  # [linux64]
+    # TODO: enable data parallel frameworks when they are available on conda-forge
+    # - dpctl
+    # - dpnp
+    # next deps are synced with requirements-test.txt
     - pytest
+    - scikit-learn
+    - pandas
+    - xgboost
+    - lightgbm
+    # TODO: re-enable shap and catboost when conda-forge packages has a numpy 2.* compatibility
+    # - shap
+    # - catboost
+    - array-api-compat
+    - array-api-strict
   source_files:
-    - sklearnex/tests
-  commands:
-    - cd sklearnex
-    - python -c "import sklearnex"
-    - python -c "from sklearnex import patch_sklearn; patch_sklearn()"
-    - python -m pytest --pyargs --verbose .
+    - .ci
+    - examples
+    - tests
 
 about:
   home: https://intel.github.io/scikit-learn-intelex
-  license: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
+  license: Apache-2.0
   license_file:
     - LICENSE
     - doc/third-party-programs-sklearnex.txt
-  summary: Intel(R) Extension for Scikit-learn is a seamless way to speed up your Scikit-learn application.
+  summary: Intel(R) Extension for Scikit-learn* is a seamless way to speed up your Scikit-learn application.
   description: |
     <strong>LEGAL NOTICE: Use of this software package is subject to the
     software license agreement (as set forth above, in the license section of
@@ -61,6 +100,7 @@ about:
 
 extra:
   recipe-maintainers:
+    # GitHub IDs for maintainers of the recipe.
     - napetrov
     - Alexsandruss
     - maria-Petrova

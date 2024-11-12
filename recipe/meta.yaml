@@ -49,7 +49,6 @@ requirements:
     - dal-devel =={{ version }}
   run:
     - python
-    - {{ pin_compatible('numpy') }}
     # dal pinning depends on the recipe location (repo or feedstock)
     # - dal
     - dal =={{ version }}

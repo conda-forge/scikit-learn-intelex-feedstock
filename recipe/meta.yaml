@@ -14,6 +14,8 @@ package:
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: a119bd7c122d7039d7046feb1d22767f81a3d0446db0b3d194cad4f83bf5520f
+  patches:
+    - patches/0002-py313-njobs-support-fix.patch
 # source:
 #   path: ..
 

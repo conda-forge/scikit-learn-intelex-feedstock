@@ -1,7 +1,7 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
 {% set version = "2025.1.0" %}
 

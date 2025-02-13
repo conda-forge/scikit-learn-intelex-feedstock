@@ -1,9 +1,9 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = "2025.0.0" %}
+{% set version = "2025.1.0" %}
 
 package:
   name: {{ name|lower }}
@@ -13,22 +13,20 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: a119bd7c122d7039d7046feb1d22767f81a3d0446db0b3d194cad4f83bf5520f
-  patches:
-    - patches/0002-py313-njobs-support-fix.patch
+  sha256: fbafdd39ac5e60676d2d8c37579f57266c0eddd80bb60cd272f91a11d101c431
 # source:
 #   path: ..
 
 build:
   skip: true  # [not (linux64 or win)]
   number: {{ buildnumber }}
-  include_recipe: False
+  include_recipe: false
   script_env:
-  - DPCPPROOT
-  - DALROOT
-  - NO_DIST=1  # [win]
+    - DPCPPROOT
+    - DALROOT
+    - NO_DIST=1 # [win]
   ignore_run_exports:
-  - dpcpp_linux-64  # [linux64]
+    - dpcpp_linux-64 # [linux64]
   # - dpcpp_win-64  # [win]
 
 requirements:

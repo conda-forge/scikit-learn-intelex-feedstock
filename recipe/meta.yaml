@@ -54,6 +54,7 @@ requirements:
     - python
     - numpy
     - scikit-learn
+    - scikit-learn  <1.6  # [py<=39]
     # dal pinning depends on the recipe location (repo or feedstock)
     # - dal
     - dal =={{ version }}

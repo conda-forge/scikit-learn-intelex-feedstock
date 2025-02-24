@@ -24,9 +24,9 @@ build:
   script_env:
     - DPCPPROOT
     - DALROOT
-    - NO_DIST=1 # [win]
+    - NO_DIST=1  # [win]
   ignore_run_exports:
-    - dpcpp_linux-64 # [linux64]
+    - dpcpp_linux-64  # [linux64]
   # - dpcpp_win-64  # [win]
 
 requirements:

@@ -47,7 +47,7 @@ requirements:
     - mpich  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
-    - dal-devel ==2025.5.0
+    - dal-devel =={{ version }}
   run:
     - python
     - numpy

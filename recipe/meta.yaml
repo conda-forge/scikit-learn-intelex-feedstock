@@ -1,9 +1,9 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = "2025.5.0" %}
+{% set version = "2025.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -12,8 +12,8 @@ package:
 
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
-  url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: fde86223dd405ea0956a28ce9f4f6b201dcaa5921d9be47b72d078cae24f4cfa
+  url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
+  sha256: 3f49de035da70ea036e6dff932bc3cba3ea2b9343ea858e000bc2265e866ddf7
 # source:
 #   path: ..
 
@@ -47,7 +47,7 @@ requirements:
     - mpich  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
-    - dal-devel =={{ version }}
+    - dal-devel ==2025.5.0
   run:
     - python
     - numpy

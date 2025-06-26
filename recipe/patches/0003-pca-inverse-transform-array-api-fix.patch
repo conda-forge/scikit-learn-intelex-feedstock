@@ -1,0 +1,19 @@
+diff --git a/sklearnex/decomposition/pca.py b/sklearnex/decomposition/pca.py
+index 5d0b1343..191457ad 100755
+--- a/sklearnex/decomposition/pca.py
++++ b/sklearnex/decomposition/pca.py
+@@ -212,9 +212,12 @@ if daal_check_version((2024, "P", 100)):
+                 # Scikit-learn PCA["covariance_eigh"] was fit
+                 return self._transform(X_fit, xp, x_is_centered=x_is_centered)
+ 
+-        @wrap_output_data
+         def inverse_transform(self, X):
+-            xp, _ = get_namespace(X)
++            xp = (
++                func()
++                if (func := getattr(X, "__array_namespace__", None))
++                else get_namespace(X)[0]
++            )
+ 
+             mean = self.mean_
+             if self.whiten:

@@ -75,6 +75,7 @@ test:
     # - catboost
     - array-api-compat
     - array-api-strict
+    - array-api-strict <2.4  # [py<312]
   source_files:
     - .ci
     - examples

@@ -35,6 +35,7 @@ requirements:
     - {{ compiler('cxx') }}
     # conda-forge feedstock specific
     - {{ stdlib("c") }}
+    - impi-devel  # [not win]
   host:
     - python
     - setuptools
@@ -44,9 +45,7 @@ requirements:
     - jinja2
     - pybind11
     - numpy
-    - {{ mpi }}  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
-    # - dal-devel
     - dal-devel =={{ version }}
   run:
     - python
@@ -55,11 +54,16 @@ requirements:
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
     # - dal
+    - mpi:  # [not win]
+      - *=impi  # [not win]
+      - *=mpich  # [not win]
 
 test:
   requires:
     - pyyaml
-    - {{ mpi }}  # [not win]
+    - mpi:  # [not win]
+      - *=impi  # [not win]
+      - *=mpich  # [not win]
     # DPC part of sklearnex is optional
     - dpcpp-cpp-rt  # [linux64]
     # TODO: enable data parallel frameworks when they are available on conda-forge

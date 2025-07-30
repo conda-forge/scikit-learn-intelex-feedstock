@@ -44,7 +44,7 @@ requirements:
     - jinja2
     - pybind11
     - numpy
-    - mpich  # [not win]
+    - {{ mpi }}  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
     - dal-devel =={{ version }}
@@ -59,7 +59,7 @@ requirements:
 test:
   requires:
     - pyyaml
-    - mpich  # [not win]
+    - {{ mpi }}  # [not win]
     # DPC part of sklearnex is optional
     - dpcpp-cpp-rt  # [linux64]
     # TODO: enable data parallel frameworks when they are available on conda-forge
@@ -80,6 +80,10 @@ test:
     - .ci
     - examples
     - tests
+
+mpi:
+  - impi
+  - mpich
 
 about:
   home: https://intel.github.io/scikit-learn-intelex

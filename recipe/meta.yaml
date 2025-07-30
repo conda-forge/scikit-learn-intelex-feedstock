@@ -54,12 +54,12 @@ requirements:
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
     # - dal
-    - mpi *=impi  # [not win]
+    - mpi * impi  # [not win]
 
 test:
   requires:
     - pyyaml
-    - mpi *=impi  # [not win]
+    - mpi * impi  # [not win]
     # DPC part of sklearnex is optional
     - dpcpp-cpp-rt  # [linux64]
     # TODO: enable data parallel frameworks when they are available on conda-forge

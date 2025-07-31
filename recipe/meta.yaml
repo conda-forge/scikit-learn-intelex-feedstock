@@ -35,8 +35,6 @@ requirements:
     - {{ compiler('cxx') }}
     # conda-forge feedstock specific
     - {{ stdlib("c") }}
-    - impi-devel  # [not win]
-    - mpi * impi  # [not win]
   host:
     - python
     - setuptools
@@ -48,6 +46,8 @@ requirements:
     - numpy
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     - dal-devel =={{ version }}
+    - impi-devel  # [not win]
+    - mpi * impi  # [not win]
   run:
     - python
     - numpy

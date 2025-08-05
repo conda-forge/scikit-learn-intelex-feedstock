@@ -3,7 +3,7 @@
 {% set name = "scikit-learn-intelex" %}
 {% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = "2025.6.1" %}
+{% set version = "2025.7.0" %}
 
 package:
   name: {{ name|lower }}
@@ -13,9 +13,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 1e3fa47b7d9ac4534a529e3dad9e6e46e874882af87b3d48a84ff11b84f7676d
-  patches:
-    - patches/0003-pca-inverse-transform-array-api-fix.patch
+  sha256: 8b3e722a9f8629e9c73ca75565fe4cf19e7f7626f54826b16f38f500ee9d5e2e
 # source:
 #   path: ..
 
@@ -46,10 +44,10 @@ requirements:
     - jinja2
     - pybind11
     - numpy
-    - mpich  # [not win]
     # dal-devel pinning depends on the recipe location (repo or feedstock)
-    # - dal-devel
     - dal-devel =={{ version }}
+    - impi-devel  # [not win]
+    - mpi * impi  # [not win]
   run:
     - python
     - numpy
@@ -57,11 +55,12 @@ requirements:
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
     # - dal
+    - mpi * impi  # [not win]
 
 test:
   requires:
     - pyyaml
-    - mpich  # [not win]
+    - mpi * impi  # [not win]
     # DPC part of sklearnex is optional
     - dpcpp-cpp-rt  # [linux64]
     # TODO: enable data parallel frameworks when they are available on conda-forge
@@ -72,9 +71,9 @@ test:
     - pandas
     - xgboost
     - lightgbm
-    # TODO: re-enable shap and catboost when conda-forge packages has a numpy 2.* compatibility
-    # - shap
-    # - catboost
+    - treelite
+    - shap
+    - catboost
     - array-api-compat
     - array-api-strict
     - array-api-strict <2.4  # [py<312]

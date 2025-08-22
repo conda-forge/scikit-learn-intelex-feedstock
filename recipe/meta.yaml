@@ -55,7 +55,6 @@ requirements:
     - scikit-learn
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
-    # - dal
     - mpi * impi  # [not win]
 
 test:

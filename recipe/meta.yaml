@@ -47,20 +47,20 @@ requirements:
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
     - dal-devel =={{ version }}
-    - impi-devel
-    - mpi * impi
+    - impi-devel  # [not win]
+    - mpi * impi  # [not win]
   run:
     - python
     - numpy
     - scikit-learn
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
-    - mpi * impi
+    - mpi * impi  # [not win]
 
 test:
   requires:
     - pyyaml
-    - mpi * impi
+    - mpi * impi  # [not win]
     - mpi4py
     - pytest-mpi
     # DPC part of sklearnex is optional

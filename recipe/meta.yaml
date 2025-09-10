@@ -24,7 +24,6 @@ build:
   script_env:
     - DPCPPROOT
     - DALROOT
-    - NO_DIST=1  # [win]
   ignore_run_exports_from:
     - {{ compiler('dpcpp') }}  # [linux64]
 

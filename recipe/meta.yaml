@@ -62,7 +62,6 @@ test:
     - pyyaml
     - mpi * impi  # [not win]
     - mpi4py
-    - pytest-mpi
     # DPC part of sklearnex is optional
     - dpcpp-cpp-rt  # [linux64]
     # TODO: enable data parallel frameworks when they are available on conda-forge

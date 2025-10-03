@@ -89,7 +89,7 @@ about:
   license_file:
     - LICENSE
     - doc/third-party-programs-sklearnex.txt
-  summary: Intel(R) Extension for Scikit-learn* is a seamless way to speed up your Scikit-learn application.
+  summary: Extension for Scikit-learn* is a seamless way to speed up your Scikit-learn application.
   description: |
     Extension for Scikit-learn is a <strong>free software AI accelerator</strong> designed to deliver over
     <strong>10-100X</strong> acceleration to your existing scikit-learn code. The software acceleration is

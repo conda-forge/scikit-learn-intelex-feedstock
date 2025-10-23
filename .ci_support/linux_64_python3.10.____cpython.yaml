@@ -13,7 +13,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-alma-x86_64:8
 impi_devel:
-- '2021.14'
+- 2021.16.0
 numpy:
 - '2'
 pin_run_as_build:

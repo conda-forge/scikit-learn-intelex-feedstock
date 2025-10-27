@@ -3,24 +3,32 @@ About scikit-learn-intelex-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scikit-learn-intelex-feedstock/blob/main/LICENSE.txt)
 
-Home: https://intel.github.io/scikit-learn-intelex
+Home: https://uxlfoundation.github.io/scikit-learn-intelex
 
 Package license: Apache-2.0
 
-Summary: Intel(R) Extension for Scikit-learn* is a seamless way to speed up your Scikit-learn application.
+Summary: Extension for Scikit-learn* is a seamless way to speed up your Scikit-learn application.
 
-Development: https://github.com/intel/scikit-learn-intelex
+Development: https://github.com/uxlfoundation/scikit-learn-intelex
 
-Documentation: https://intel.github.io/scikit-learn-intelex
+Documentation: https://uxlfoundation.github.io/scikit-learn-intelex
 
-<strong>LEGAL NOTICE: Use of this software package is subject to the
-software license agreement (as set forth above, in the license section of
-the installed Conda package and/or the README file) and all notices,
-disclaimers or license terms for third party or open source software
-included in or with the software.</strong>
+Extension for Scikit-learn is a <strong>free software AI accelerator</strong> designed to deliver over
+<strong>10-100X</strong> acceleration to your existing scikit-learn code. The software acceleration is
+achieved with vector instructions, AI hardware-specific memory optimizations, threading, and optimizations.
 <br/><br/>
-EULA: <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache-2.0</a>
-<br/><br/>
+With Extension for Scikit-learn, you can:
+<ul>
+<li>Speed up training and inference by up to 100x with equivalent mathematical accuracy</li>
+<li>Benefit from performance improvements across different hardware configurations, including
+    <a href="https://uxlfoundation.github.io/scikit-learn-intelex/latest/oneapi-gpu.html" target="_blank">GPUs</a>
+    and <a href="https://uxlfoundation.github.io/scikit-learn-intelex/latest/distributed-mode.html" target="_blank">multi-GPU</a>
+    configurations
+</li>
+<li>Integrate the extension into your existing Scikit-learn applications without code modifications</li>
+<li>Continue to use the open-source scikit-learn API</li>
+<li>Enable and disable the extension with a couple of lines of code or at the command line</li>
+</ul>
 
 
 Current build status

@@ -80,7 +80,7 @@ test:
     - array-api-strict <2.4  # [py<312]
   source_files:
     - .ci
-    - .pytest-verbosity-args
+    - setup.cfg
     - examples
     - tests
 

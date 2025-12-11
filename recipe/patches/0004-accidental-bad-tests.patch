@@ -1,0 +1,45 @@
+From 9250e111f874a3fbb5c581d8927adb276fdedd08 Mon Sep 17 00:00:00 2001
+From: ethanglaser <42726565+ethanglaser@users.noreply.github.com>
+Date: Wed, 10 Dec 2025 23:29:39 -0800
+Subject: [PATCH] Update for sklearn 1.8 (#2847)
+
+* Update for sklearn 1.8
+
+* readd skl version check
+
+* fix syntax
+---
+ requirements-test.txt        | 3 ++-
+ tests/test_model_builders.py | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/requirements-test.txt b/requirements-test.txt
+index dbcb6b3e..f815c3a4 100644
+--- a/requirements-test.txt
++++ b/requirements-test.txt
+@@ -7,7 +7,8 @@ numpy>=1.21.6 ; python_version == '3.10'
+ numpy>=1.23.5 ; python_version == '3.11'
+ numpy>=2.0.0 ; python_version >= '3.12'
+ scikit-learn==1.5.2 ; python_version <= '3.9'
+-scikit-learn==1.8.0 ; python_version >= '3.10'
++scikit-learn==1.7.2 ; python_version == '3.10'
++scikit-learn==1.8.0 ; python_version >= '3.11'
+ pandas==2.1.3 ; python_version < '3.11'
+ pandas==2.3.3 ; python_version >= '3.11'
+ xgboost==2.1.4 ; python_version < '3.10'
+diff --git a/tests/test_model_builders.py b/tests/test_model_builders.py
+index 70a2e687..b82b053d 100644
+--- a/tests/test_model_builders.py
++++ b/tests/test_model_builders.py
+@@ -2184,7 +2184,7 @@ def test_logreg_builder_sequential_calls():
+             ),
+         ]
+         if not sklearn_check_version("1.8")
+-        else [(LogisticRegression(solver="liblinear"), 2)]
++        else []
+     )
+     + [
+         # case below might change in the future if sklearn improves their modules
+-- 
+2.47.3
+

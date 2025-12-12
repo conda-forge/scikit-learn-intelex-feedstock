@@ -1,4 +1,19 @@
 #!/bin/bash
+#===============================================================================
+# Copyright 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#===============================================================================
 
 sklex_root="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 count=3
@@ -21,6 +36,8 @@ if [ -z "${PYTHON}" ]; then
     export PYTHON=python
 fi
 
+export SCIPY_ARRAY_API=1
+
 # Note: execute with argument --json-report in order to produce
 # a JSON report under folder '.pytest_reports'. Other arguments
 # will also be forwarded to pytest.
@@ -33,41 +50,60 @@ if [[ "$*" == *"--json-report"* ]]; then
         rm .pytest_reports/*.json
     fi
 fi
-function json_report_name {
+
+function generate_pytest_args {
+    declare -a ARGS=()
     if [[ "${with_json_report}" == "1" ]]; then
-        printf -- "--json-report-file=.pytest_reports/$1_report.json"
+        ARGS+=("--json-report-file=.pytest_reports/$1_report.json")
     fi
+    if [ -n "${COVERAGE_RCFILE}" ]; then
+        ARGS+=(--cov=onedal --cov=sklearnex --cov-config="${COVERAGE_RCFILE}" --cov-append --cov-branch --cov-report=)
+    fi
+    printf -- "${ARGS[*]}"
 }
+
+PYTEST_CONFIG="-c ${sklex_root}/setup.cfg"
 
 ${PYTHON} -c "from sklearnex import patch_sklearn; patch_sklearn()"
 return_code=$(($return_code + $?))
 
-# TODO: replace command below after 2025.1 release
-# pytest --verbose -s ${sklex_root}/tests $@ $(json_report_name legacy)
-${PYTHON} -m unittest discover -v -s ${sklex_root}/tests -p test*.py
+pytest ${PYTEST_CONFIG} -s "${sklex_root}/tests" $@ $(generate_pytest_args legacy)
 return_code=$(($return_code + $?))
 
-pytest --verbose --pyargs daal4py $@ $(json_report_name daal4py)
+pytest ${PYTEST_CONFIG} --pyargs daal4py $@ $(generate_pytest_args daal4py)
 return_code=$(($return_code + $?))
 
-pytest --verbose --pyargs sklearnex $@ $(json_report_name sklearnex)
+pytest ${PYTEST_CONFIG} --pyargs sklearnex $@ $(generate_pytest_args sklearnex)
 return_code=$(($return_code + $?))
 
-pytest --verbose --pyargs onedal $@ $(json_report_name onedal)
+pytest ${PYTEST_CONFIG} --pyargs onedal $@ $(generate_pytest_args onedal)
 return_code=$(($return_code + $?))
 
-# TODO: replace command below after 2025.1 release
-# pytest --verbose -s ${sklex_root}/.ci/scripts/test_global_patch.py $@ $(json_report_name global_patching)
-${PYTHON} ${sklex_root}/.ci/scripts/test_global_patch.py
+pytest ${PYTEST_CONFIG} -s "${sklex_root}/.ci/scripts/test_global_patch.py" $@ $(generate_pytest_args global_patching)
 return_code=$(($return_code + $?))
 
 echo "NO_DIST=$NO_DIST"
 if [[ ! $NO_DIST ]]; then
     mpirun --version
-    # TODO: replace command below after 2025.1 release
-    # mpirun -n 4 pytest --verbose -s ${sklex_root}/tests/test*spmd*.py $@ $(json_report_name mpi_legacy)
-    mpirun -n 4 python -m unittest discover -v -s ${sklex_root}/tests -p test*spmd*.py
+    # Note: OpenMPI will not allow running more processes than there
+    # are cores in the machine, and Intel's MPI doesn't support the
+    # same command line options, hence this line.
+    if [[ ! -z "$(mpirun -h | grep "Open MPI")" ]]; then
+        export EXTRA_MPI_ARGS="-n 2 -oversubscribe"
+    else
+        export EXTRA_MPI_ARGS="-n 4"
+    fi
+    mpirun ${EXTRA_MPI_ARGS} python "${sklex_root}/tests/helper_mpi_tests.py" \
+        pytest -k spmd --with-mpi ${PYTEST_CONFIG} --pyargs sklearnex $@ $(generate_pytest_args sklearnex_spmd)
     return_code=$(($return_code + $?))
+    mpirun ${EXTRA_MPI_ARGS} python "${sklex_root}/tests/helper_mpi_tests.py" \
+        pytest ${PYTEST_CONFIG} -s "${sklex_root}/tests/test_daal4py_spmd_examples.py" $@ $(generate_pytest_args mpi_legacy)
+    return_code=$(($return_code + $?))
+fi
+
+if [[ "$*" == *"--json-report"* ]] && ! [ -f .pytest_reports/legacy_report.json ]; then
+    echo "Error: JSON report files failed to be produced."
+    return_code=$(($return_code + 1))
 fi
 
 exit $return_code

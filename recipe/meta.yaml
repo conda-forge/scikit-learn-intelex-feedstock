@@ -13,7 +13,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 01abc3fd3f0eba5ee291854e7717be3d4cd6a72b14b174c44d358c2f23d327e2
+  sha256: 40e556847c2c23c899071372eb14bd548bebb4fdbfdfbc93e3655b91ff34b4a5
   patches:
     - patches/0004-accidental-bad-tests.patch
 # source:

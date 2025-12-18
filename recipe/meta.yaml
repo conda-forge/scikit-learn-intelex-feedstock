@@ -76,7 +76,7 @@ test:
     - xgboost
     - lightgbm
     - treelite
-    - shap
+    - shap  # [py<314]
     - catboost
     - array-api-compat
     - array-api-strict

@@ -1,7 +1,7 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set buildnumber = 0 %}
+{% set buildnumber = 1 %}
 # version is set manually in feedstocks and through git tag in repo
 {% set version = "2025.10.0" %}
 
@@ -76,7 +76,9 @@ test:
     - xgboost
     - lightgbm
     - treelite
-    - shap
+    # TODO: re-enable shap once they have py314 support and once they sort
+    # out their issues with numba version pinnings
+    # - shap
     - catboost
     - array-api-compat
     - array-api-strict

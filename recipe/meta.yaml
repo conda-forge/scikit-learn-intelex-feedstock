@@ -78,7 +78,8 @@ test:
     # TODO: re-enable shap once they have py314 support and once they sort
     # out their issues with numba version pinnings
     # - shap
-    - catboost
+    # TODO: re-enable once their py314 builds work correctly
+    - catboost  # [py<=313]
     - array-api-compat
     - array-api-strict
     - array-api-strict <2.4  # [py<312]

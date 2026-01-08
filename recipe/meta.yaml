@@ -1,9 +1,9 @@
 # NB: this recipe should be synced between sklearnex repo and feedstocks
 
 {% set name = "scikit-learn-intelex" %}
-{% set buildnumber = 1 %}
+{% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = "2025.10.0" %}
+{% set version = "2025.10.1" %}
 
 package:
   name: {{ name|lower }}
@@ -13,9 +13,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 40e556847c2c23c899071372eb14bd548bebb4fdbfdfbc93e3655b91ff34b4a5
-  patches:
-    - patches/0004-accidental-bad-tests.patch
+  sha256: 25a4dc3f83fe48d88a59133e57007584b3115cff97a2caab7e8be3c5c608763c
 # source:
 #   path: ..
 
@@ -58,6 +56,7 @@ requirements:
     - scikit-learn  <1.6  # [py<=39]
     # dal-devel has run_exports on conda-forge, so no need to add it.
     - mpi * impi  # [not win]
+    - packaging  # [py>=313]
 
 test:
   requires:

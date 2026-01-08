@@ -14,6 +14,8 @@ package:
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 25a4dc3f83fe48d88a59133e57007584b3115cff97a2caab7e8be3c5c608763c
+  patches:
+  - patches/0004-accidental-bad-tests.patch
 # source:
 #   path: ..
 

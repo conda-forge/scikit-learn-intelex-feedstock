@@ -46,7 +46,7 @@ requirements:
     - numpy
     # dal-devel pinning depends on the recipe location (repo or feedstock)
     # - dal-devel
-    - dal-devel =={{ version }}
+    - dal-devel ==2025.10.0
     - impi-devel  # [not win]
     - mpi * impi  # [not win]
   run:

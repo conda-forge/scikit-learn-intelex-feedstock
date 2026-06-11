@@ -3,7 +3,7 @@
 {% set name = "scikit-learn-intelex" %}
 {% set buildnumber = 0 %}
 # version is set manually in feedstocks and through git tag in repo
-{% set version = "2026.0.0" %}
+{% set version = "2026.1.0" %}
 
 package:
   # Top-level package name is a placeholder - name not used directly.
@@ -14,9 +14,7 @@ package:
 # Reminder: source should point to path for repo or github archive for feedstock
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: efa12836d3db8f4a25824c3a8ac529c65e26e0c79793a264f17637ec4753df45
-  patches:
-  - patches/0006-skip-linreg-tol.patch
+  sha256: 6b2eb283d1d59ebc2ed4855a9ea07c5c1529728ae4ed7b0f2911551727534eec
 # source:
 #   path: ..
 

@@ -15,8 +15,6 @@ package:
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 6b2eb283d1d59ebc2ed4855a9ea07c5c1529728ae4ed7b0f2911551727534eec
-  patches:
-    - patches/0006-skip-linreg-tol.patch
 # source:
 #   path: ..
 

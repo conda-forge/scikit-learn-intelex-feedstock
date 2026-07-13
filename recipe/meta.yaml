@@ -97,6 +97,7 @@ outputs:
         - array-api-strict
         - array-api-strict <2.4  # [py<312]
         - polars
+        - numpy >=2.2
       source_files:
         - .ci
         - setup.cfg

@@ -92,7 +92,8 @@ outputs:
         - lightgbm
         - treelite
         - shap
-        - catboost
+        # catboost <1.2.8 is ABI-incompatible with numpy 2.x
+        - catboost >=1.2.8
         - array-api-compat
         - array-api-strict
         - array-api-strict <2.4  # [py<312]

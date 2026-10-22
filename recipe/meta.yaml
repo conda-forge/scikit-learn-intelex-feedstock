@@ -15,8 +15,6 @@ package:
 source:
   url: https://github.com/uxlfoundation/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 739b57f9d2a199d02854a4c39a3d81bb86aa1c1165c552ed6f32df3671b63a48
-  patches:
-    - patches/0007-xgb-test-backport.patch
 # source:
 #   path: ..
 

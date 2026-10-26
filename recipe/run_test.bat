@@ -30,16 +30,13 @@ if "%PYTHON%"=="python" (
 
 set SCIPY_ARRAY_API=1
 
-echo "--- mark0 - start of script exitcode=%exitcode% NO_DPC=%NO_DPC% NO_DIST=%NO_DIST% ---"
 
 rem CPU package must not contain the DPC backend (split into scikit-learn-intelex-gpu).
 rem Feedstock-only check: omitted in the sklearnex repo where run_test.bat is shared
 rem with build-and-test-*.yml, which builds CPU+DPC together in one prefix.
 %PYTHON% -c "import onedal, os, glob; d = os.path.dirname(onedal.__file__); assert not glob.glob(os.path.join(d, '_onedal_py_dpc*')) and not glob.glob(os.path.join(d, '_onedal_py_spmd_dpc*')), 'DPC backend leaked into CPU package'" || set exitcode=1
-echo "--- mark1 - exitcode:%exitcode% ---"
 
 %PYTHON% -c "from sklearnex import patch_sklearn; patch_sklearn()" || set exitcode=1
-echo "--- mark2 - exitcode:%exitcode% ---"
 
 set "PYTEST_ARGS= "
 set "PYTEST_CONFIG=-c %1setup.cfg"
@@ -54,20 +51,22 @@ if "%~2"=="--json-report" (
     mkdir .pytest_reports
     del /q .pytest_reports\*.json
 )
-echo "--- mark3 - exitcode:%exitcode% ---"
+
+rem Distributed tests on Windows need PYTHON to carry an MPI launcher, as in
+rem set "PYTHON=mpiexec -n 2 python" (see doc/sources/tests.rst). Skip them when it
+rem does not, which is also the case under conda-build: PYTHON is a plain
+rem interpreter there and the recipe installs no MPI stack on Windows, since
+rem meta.yaml marks mpi, mpi4py and pytest-mpi as "# [not win]".
+echo %PYTHON% | findstr /i /c:"mpiexec" /c:"mpirun" >nul
+if errorlevel 1 set NO_DIST=1
 
 echo "NO_DIST=%NO_DIST%"
 setlocal enabledelayedexpansion
 pytest %PYTEST_CONFIG% -s "%1tests" %PYTEST_ARGS:FILENAME=legacy_report% || set exitcode=1
-echo "--- mark4 - exitcode:%exitcode% ---"
 pytest %PYTEST_CONFIG% --pyargs daal4py %PYTEST_ARGS:FILENAME=daal4py_report% || set exitcode=1
-echo "--- mark5 - exitcode:%exitcode% ---"
 pytest %PYTEST_CONFIG% --pyargs sklearnex %PYTEST_ARGS:FILENAME=sklearnex_report% || set exitcode=1
-echo "--- mark6 - exitcode:%exitcode% ---"
 pytest %PYTEST_CONFIG% --pyargs onedal %PYTEST_ARGS:FILENAME=onedal_report% || set exitcode=1
-echo "--- mark7 - exitcode:%exitcode% ---"
 pytest %PYTEST_CONFIG% "%1.ci\scripts\test_global_patch.py" %PYTEST_ARGS:FILENAME=global_patching_report% || set exitcode=1
-echo "--- mark8 - exitcode:%exitcode% ---"
 if NOT "%NO_DIST%"=="1" (
     rem Note: there is no SPMD GPU build for Windows.
     rem Remove this once such a build gets added.
@@ -81,13 +80,23 @@ if NOT "%NO_DIST%"=="1" (
     if !errorlevel! NEQ 0 (
         set exitcode=1
     )
+    %PYTHON% "%1tests\helper_mpi_tests.py"^
+        pytest --with-mpi %PYTEST_CONFIG% -s "%1tests\test_mpi_lifecycle.py" %PYTEST_ARGS:FILENAME=mpi_lifecycle%
+    if !errorlevel! NEQ 0 (
+        set exitcode=1
+    )
+    rem Run directly rather than through the helper: this covers the
+    rem daal4py-owned MPI path, and the helper imports mpi4py, which would take
+    rem that ownership away.
+    %PYTHON% "%1tests\mpi_lifecycle_smoke.py"
+    if !errorlevel! NEQ 0 (
+        set exitcode=1
+    )
 )
-echo "--- mark9 - exitcode:%exitcode% ---"
 if "%~2"=="--json-report" (
     if NOT EXIST .pytest_reports\legacy_report.json (
         echo "Error: JSON report files failed to be produced."
         set exitcode=1
     )
 )
-echo "--- mark10 - exitcode:%exitcode% ---"
 EXIT /B %exitcode%

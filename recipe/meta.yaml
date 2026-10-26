@@ -95,7 +95,7 @@ outputs:
         - shap  # [py<315]
         # catboost <1.2.8 is ABI-incompatible with numpy 2.x
         # TODO: update this once catboost gets builds for py315
-        - catboost >=1.2.8 # [py<315]
+        - catboost >=1.2.8  # [py<315]
         - array-api-compat
         - array-api-strict
         - array-api-strict <2.4  # [py<312]

@@ -1,70 +1,30 @@
 diff --git a/sklearnex/covariance/tests/test_incremental_covariance.py b/sklearnex/covariance/tests/test_incremental_covariance.py
-index cfd28554..629a1354 100644
+index b257b568..717aae2d 100644
 --- a/sklearnex/covariance/tests/test_incremental_covariance.py
 +++ b/sklearnex/covariance/tests/test_incremental_covariance.py
-@@ -16,6 +16,7 @@
+@@ -29,7 +29,11 @@ from sklearn.covariance.tests.test_covariance import (
+ from sklearn.datasets import load_diabetes
+ from sklearn.decomposition import PCA
  
- from contextlib import nullcontext
- 
-+import array_api_strict
- import numpy as np
- import pytest
- from numpy.linalg import slogdet
-@@ -229,6 +230,10 @@ def test_whitened_toy_score(dataframe, queue):
- )
- @pytest.mark.parametrize("dtype", [np.float32, np.float64])
- def test_sklearnex_incremental_estimatior_pickle(dataframe, queue, dtype):
-+    if dataframe == "array_api" and not _package_check_version(
-+        "2.4", array_api_strict.__version__
-+    ):
-+        pytest.skip("Bug in old array-api-strict")
-     import pickle
- 
-     from sklearnex.covariance import IncrementalEmpiricalCovariance
-diff --git a/sklearnex/linear_model/tests/test_incremental_linear.py b/sklearnex/linear_model/tests/test_incremental_linear.py
-index 8b51d996..41d60c49 100644
---- a/sklearnex/linear_model/tests/test_incremental_linear.py
-+++ b/sklearnex/linear_model/tests/test_incremental_linear.py
-@@ -14,6 +14,7 @@
- # limitations under the License.
- # ===============================================================================
- 
-+import array_api_strict
- import numpy as np
- import pytest
- from numpy.testing import assert_allclose
-@@ -218,6 +219,10 @@ def test_sklearnex_partial_fit_on_random_data(
- @pytest.mark.parametrize("fit_intercept", [True, False])
- @pytest.mark.parametrize("dtype", [np.float32, np.float64])
- def test_sklearnex_incremental_estimatior_pickle(dataframe, queue, fit_intercept, dtype):
-+    if dataframe == "array_api" and not _package_check_version(
-+        "2.4", array_api_strict.__version__
-+    ):
-+        pytest.skip("Bug in old array-api-strict")
-     import pickle
- 
-     from sklearnex.linear_model import IncrementalLinearRegression
+-from daal4py.sklearn._utils import daal_check_version, sklearn_check_version, _package_check_version
++from daal4py.sklearn._utils import (
++    _package_check_version,
++    daal_check_version,
++    sklearn_check_version,
++)
+ from onedal.tests.utils._dataframes_support import (
+     _assert_in_namespace,
+     _convert_to_dataframe,
 diff --git a/sklearnex/linear_model/tests/test_incremental_ridge.py b/sklearnex/linear_model/tests/test_incremental_ridge.py
-index 179db00d..f9a56755 100644
+index 9ac2671b..a6a8fac4 100644
 --- a/sklearnex/linear_model/tests/test_incremental_ridge.py
 +++ b/sklearnex/linear_model/tests/test_incremental_ridge.py
-@@ -14,6 +14,8 @@
- # limitations under the License.
- # ===============================================================================
+@@ -16,7 +16,7 @@
  
-+import array_api_strict
-+
- from daal4py.sklearn._utils import daal_check_version
+ import array_api_strict
+ 
+-from daal4py.sklearn._utils import daal_check_version, _package_check_version
++from daal4py.sklearn._utils import _package_check_version, daal_check_version
  
  if daal_check_version((2024, "P", 600)):
-@@ -179,6 +181,10 @@ if daal_check_version((2024, "P", 600)):
- @pytest.mark.parametrize("fit_intercept", [True, False])
- @pytest.mark.parametrize("dtype", [np.float32, np.float64])
- def test_sklearnex_incremental_estimatior_pickle(dataframe, queue, fit_intercept, dtype):
-+    if dataframe == "array_api" and not _package_check_version(
-+        "2.4", array_api_strict.__version__
-+    ):
-+        pytest.skip("Bug in old array-api-strict")
-     import pickle
- 
-     from sklearnex.linear_model import IncrementalRidge
+     import numpy as np

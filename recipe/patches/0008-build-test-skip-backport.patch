@@ -1,0 +1,20 @@
+diff --git a/tests/test_build_backend.py b/tests/test_build_backend.py
+index bbdd38cc..28bb7add 100644
+--- a/tests/test_build_backend.py
++++ b/tests/test_build_backend.py
+@@ -66,6 +66,15 @@ def _create_libraries(directory, names):
+         (directory / name).touch()
+ 
+ 
++def test_ci():
++    raise ValueError(str({
++        "__file__": __file__,
++        "Path(__file__)": Path(__file__),
++        "Path(__file__).parents": Path(__file__).parents,
++        "REPO_ROOT": REPO_ROOT,
++    }))
++
++
+ @pytest.mark.parametrize(
+     "layout,arch_dir,is_win,libraries",
+     [

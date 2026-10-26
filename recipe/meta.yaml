@@ -17,6 +17,7 @@ source:
   sha256: 739b57f9d2a199d02854a4c39a3d81bb86aa1c1165c552ed6f32df3671b63a48
   patches:
     - patches/0008-build-test-skip-backport.patch
+    - patches/0009-skip-old-array-api.patch
 # source:
 #   path: ..
 

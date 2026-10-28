@@ -30,6 +30,7 @@ if "%PYTHON%"=="python" (
 
 set SCIPY_ARRAY_API=1
 
+
 rem CPU package must not contain the DPC backend (split into scikit-learn-intelex-gpu).
 rem Feedstock-only check: omitted in the sklearnex repo where run_test.bat is shared
 rem with build-and-test-*.yml, which builds CPU+DPC together in one prefix.
@@ -51,6 +52,14 @@ if "%~2"=="--json-report" (
     del /q .pytest_reports\*.json
 )
 
+rem Distributed tests on Windows need PYTHON to carry an MPI launcher, as in
+rem set "PYTHON=mpiexec -n 2 python" (see doc/sources/tests.rst). Skip them when it
+rem does not, which is also the case under conda-build: PYTHON is a plain
+rem interpreter there and the recipe installs no MPI stack on Windows, since
+rem meta.yaml marks mpi, mpi4py and pytest-mpi as "# [not win]".
+echo %PYTHON% | findstr /i /c:"mpiexec" /c:"mpirun" >nul
+if errorlevel 1 set NO_DIST=1
+
 echo "NO_DIST=%NO_DIST%"
 setlocal enabledelayedexpansion
 pytest %PYTEST_CONFIG% -s "%1tests" %PYTEST_ARGS:FILENAME=legacy_report% || set exitcode=1
@@ -59,13 +68,27 @@ pytest %PYTEST_CONFIG% --pyargs sklearnex %PYTEST_ARGS:FILENAME=sklearnex_report
 pytest %PYTEST_CONFIG% --pyargs onedal %PYTEST_ARGS:FILENAME=onedal_report% || set exitcode=1
 pytest %PYTEST_CONFIG% "%1.ci\scripts\test_global_patch.py" %PYTEST_ARGS:FILENAME=global_patching_report% || set exitcode=1
 if NOT "%NO_DIST%"=="1" (
+    rem Note: there is no SPMD GPU build for Windows.
+    rem Remove this once such a build gets added.
+    rem %PYTHON% "%1tests\helper_mpi_tests.py"^
+    rem     pytest -k spmd --with-mpi %PYTEST_CONFIG% -s --pyargs sklearnex %PYTEST_ARGS:FILENAME=sklearnex_spmd%
+    rem if !errorlevel! NEQ 0 (
+    rem     set exitcode=1
+    rem )
     %PYTHON% "%1tests\helper_mpi_tests.py"^
-        pytest -k spmd --with-mpi %PYTEST_CONFIG% -s --pyargs sklearnex %PYTEST_ARGS:FILENAME=sklearnex_spmd%
+        pytest --with-mpi %PYTEST_CONFIG% -s "%1tests\test_daal4py_spmd_examples.py" %PYTEST_ARGS:FILENAME=mpi_legacy%
     if !errorlevel! NEQ 0 (
         set exitcode=1
     )
     %PYTHON% "%1tests\helper_mpi_tests.py"^
-        pytest --with-mpi %PYTEST_CONFIG% -s "%1tests\test_daal4py_spmd_examples.py" %PYTEST_ARGS:FILENAME=mpi_legacy%
+        pytest --with-mpi %PYTEST_CONFIG% -s "%1tests\test_mpi_lifecycle.py" %PYTEST_ARGS:FILENAME=mpi_lifecycle%
+    if !errorlevel! NEQ 0 (
+        set exitcode=1
+    )
+    rem Run directly rather than through the helper: this covers the
+    rem daal4py-owned MPI path, and the helper imports mpi4py, which would take
+    rem that ownership away.
+    %PYTHON% "%1tests\mpi_lifecycle_smoke.py"
     if !errorlevel! NEQ 0 (
         set exitcode=1
     )

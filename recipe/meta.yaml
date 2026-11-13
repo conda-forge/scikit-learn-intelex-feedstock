@@ -105,6 +105,8 @@ outputs:
         - .ci
         - setup.cfg
         - examples
+        - scripts/build_backend.py
+        - scripts/CMakeLists.txt
         - tests
       script: run_test.sh  # [linux]
       script: run_test.bat  # [win]
